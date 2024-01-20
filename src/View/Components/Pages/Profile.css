@@ -1,0 +1,47 @@
+.profile-container {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 3rem;
+  }
+  
+  .profile-heading {
+    margin-bottom: 20px;
+  }
+  
+  .profile-heading h2 {
+    font-size: 44px;
+  }
+  
+  .profile-options {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .profile-options a {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    height: 10rem;
+    width: 10rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .profile-box{
+    margin-top: .5rem;
+  }
+  
+  .profile-options a:hover {
+    background-color: #2980b9;
+  }
+  
+  
+  
+  

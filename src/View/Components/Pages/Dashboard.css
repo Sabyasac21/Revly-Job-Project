@@ -1,0 +1,22 @@
+.teacher-dashboard {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .problems-list {
+    list-style: disc;
+    padding: 0;
+  }
+  
+  .problems-list li {
+    margin-bottom: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 35px;
+    text-align: center;
+
+  }
+  
