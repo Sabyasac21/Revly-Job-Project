@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css';
 import { useLocation } from 'react-router-dom';
 import TeacherDashboard from './TeacherDashboard';
+import StudentDashboard from './StudentDashboard';
 
 function Home(props) {
   const location = useLocation();
@@ -9,7 +10,7 @@ function Home(props) {
     
   return (
     <>
-        {(!props.isAuth&&!isAuth) && <div className='user-status'>
+        {(!props.isAuthenticated) && <div className='user-status'>
             <h1>
             Register to get onBoard
             </h1>
@@ -17,8 +18,9 @@ function Home(props) {
 
 
         
-        {(props.isAuth|| isAuth) && <div className='user-status'>
-            <TeacherDashboard/>
+        {(props.isAuthenticated) && <div className='user-status'>
+          {props.role==='teacher' ? (<TeacherDashboard/>):(<StudentDashboard/>)}
+            
         </div>}
         
        
