@@ -48,7 +48,9 @@ function RegistrationForm(props) {
         
         alert(response.data.message);
         if (response.data.success) {
+          // localStorage.removeItem('token')
           localStorage.setItem('token', response.data.data)
+          
           
           navigate('/')
         }

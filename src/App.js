@@ -8,6 +8,7 @@ import LoginForm from './View/Components/Forms/LoginForm';
 // import Profile from './View/Components/Pages/Profile';
 // import TeacherRegistrationForm from './View/Components/Forms/TeacherRegistrationForm';
 import { useState } from 'react';
+import StudentDoubtForm from './View/Components/Forms/StudentDoubtForm';
 
 
 function App() {
@@ -19,11 +20,12 @@ function App() {
   }
   return (
     <Router>
-      <Navbar isAuthenticated = {isAuthenticated}/>
+      <Navbar isAuthenticated = {isAuthenticated} role={role}/>
       <Routes>
         <Route path='/' element={<Home isAuthenticated = {isAuthenticated} role={role}/>}/>
         <Route path='/register' element={<RegistrationForm onLogin={handleLogin}/>}/>
         <Route path='/login' element={<LoginForm/>}></Route>
+        <Route path='/doubt' element={<StudentDoubtForm/>}></Route>
       </Routes>
       
     </Router>
