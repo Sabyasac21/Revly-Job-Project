@@ -19,4 +19,14 @@ const doubtFormSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  assigned:{
+    type: Boolean,
+    default: false
+  },
+  time:{
+    type: Date,
+    default: Date.now
+  }
 });
+
+module.exports=mongoose.model('doubtForm', doubtFormSchema)

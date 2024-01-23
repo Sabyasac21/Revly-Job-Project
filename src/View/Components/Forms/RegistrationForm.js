@@ -50,6 +50,7 @@ function RegistrationForm(props) {
         if (response.data.success) {
           // localStorage.removeItem('token')
           localStorage.setItem('token', response.data.data)
+          console.log(response.data.data);
           
           
           navigate('/')
@@ -164,7 +165,7 @@ function RegistrationForm(props) {
         </>
       )}
 
-      <button type="submit" onClick={()=>props.onLogin(formData.role)}>Register</button>
+      <button type="submit" onClick={()=>props.onRegister(formData)}>Register</button>
 
       <Link to="/login">
         <span className="form login">Already have an account</span>

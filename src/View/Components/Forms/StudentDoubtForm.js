@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { createDoubt } from "../../../Controler/ApiCalls/Users";
+import { useNavigate } from "react-router-dom";
 
 
 function StudentDoubtForm() {
@@ -8,6 +9,7 @@ function StudentDoubtForm() {
     subject: "",
     topic: "",
   });
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +20,7 @@ function StudentDoubtForm() {
         // console.log(payload);
         const response = await createDoubt(payload)
         alert(response.data.message)
+        navigate(`/${response.data.data.studentId}`)
     } catch (error) {
         console.log(error)
     }

@@ -14,22 +14,18 @@ router.post("/register", async (req, res) => {
         message: "User Already Exist",
       });
     }
-    // console.log(req.body.role);
+
     const newUser = new User(req.body);
     // console.log(newUser);
     await newUser.save();
-    // console.log(newUser);
-    const id = await User.findById(newUser._id)
-    
+
     const token = jwt.sign(
-      { userId: id._id, email: newUser.email },
+      { userId: newUser._id, email: newUser.email },
       process.env.jwt_secret,
       {
         expiresIn: "7h",
       }
     );
-    
-    console.log(token);
 
     res.send({
       success: true,
@@ -47,7 +43,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       res.status(401).send({ success: false, message: "Invalid Credentials" });
     }
-    const isCorrectPassword = (await req.body.password) === user.password;
+    const isCorrectPassword = req.body.password === user.password;
     if (!isCorrectPassword) {
       res.status(401).send({ success: false, message: "Invalid Password" });
     }
@@ -58,9 +54,13 @@ router.post("/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
-    res
-      .status(201)
-      .send({ success: true, message: "Succesfully logged-in", data: token });
+
+    res.status(201).send({
+      success: true,
+      message: "Succesfully logged-in",
+      data: token,
+      user: user,
+    });
   } catch (error) {
     res.send({ success: false, message: `error: ${error}` });
   }
@@ -69,28 +69,43 @@ router.post("/login", async (req, res) => {
 router.post("/doubt", authMiddleware, async (req, res) => {
   try {
     const { classGrade, subject, topic } = req.body;
-    
-    const studentId = req.body.userId;
-    // console.log(studentId);
 
-    const newDoubtForm = new doubtForm(
-      {classGrade, subject, topic, studentId}
-    );
-    // console.log({...req.body});
+    const studentId = req.userId;
+
+    const newDoubtForm = new doubtForm({ ...req.body, studentId });
+
     await newDoubtForm.save();
-    // console.log(newDoubtForm);
+
     res.send({
       message: "Submitted",
       success: true,
-      data: newDoubtForm
+      data: newDoubtForm,
     });
   } catch (error) {
+    // console.log('k hua');
     res.status(404).send({
-      message: error,
+      message: error.message,
       success: false,
-      message2: 'uff..'
+      message2: "uff..",
     });
   }
 });
+
+router.get('/:studentId', authMiddleware, async (req, res)=>{
+  try {
+    const data = await doubtForm.find({studentId:req.body.userId})
+      res.send({
+        message:'Data Fetched',
+        success: true,
+        data: data
+      })
+    
+  } catch (error) {
+    res.status(500).send({
+      message: 'Error fetching data',
+      success: false
+    })
+  }
+})
 
 module.exports = router;

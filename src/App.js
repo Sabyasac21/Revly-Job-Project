@@ -13,18 +13,21 @@ import StudentDoubtForm from './View/Components/Forms/StudentDoubtForm';
 
 function App() {
   const [isAuthenticated, setisAuthenticated] = useState(false)
-  const [role, setRole] = useState('')
-  const handleLogin = (role)=>{
+  const [user, setUser] = useState('')
+  const handleClick = (user)=>{
     setisAuthenticated(true)
-    setRole(role)
+    console.log(user);
+    setUser(user)
   }
+  
   return (
     <Router>
-      <Navbar isAuthenticated = {isAuthenticated} role={role}/>
+      <Navbar isAuthenticated = {isAuthenticated} role = {user.role}/>
       <Routes>
-        <Route path='/' element={<Home isAuthenticated = {isAuthenticated} role={role}/>}/>
-        <Route path='/register' element={<RegistrationForm onLogin={handleLogin}/>}/>
-        <Route path='/login' element={<LoginForm/>}></Route>
+        <Route path='/' element={<Home isAuthenticated = {isAuthenticated} user={user}/>}/>
+        <Route path='/:studentId' element={<Home isAuthenticated = {isAuthenticated} user={user}/>}/>
+        <Route path='/register' element={<RegistrationForm onRegister={handleClick}/>}/>
+        <Route path='/login' element={<LoginForm onLogin={handleClick}/>}></Route>
         <Route path='/doubt' element={<StudentDoubtForm/>}></Route>
       </Routes>
       
