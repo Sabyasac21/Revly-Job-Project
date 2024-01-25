@@ -1,0 +1,39 @@
+.useDoubts-container {
+    max-width: 600px;
+    margin-top: 3rem;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h2{
+    text-align: center;
+  }
+  
+  .doubts-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .doubts-list li {
+    margin-bottom: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    text-align: center;
+  }
+  
+  .doubts-list li strong {
+    font-weight: bold;
+  }
+  
+  .doubts-list li p {
+    margin: 0;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  

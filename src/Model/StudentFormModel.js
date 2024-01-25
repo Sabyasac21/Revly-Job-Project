@@ -19,6 +19,10 @@ const doubtFormSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  language:{
+    type: String,
+    required: true
+  },
   assigned:{
     type: Boolean,
     default: false
@@ -26,6 +30,10 @@ const doubtFormSchema = new mongoose.Schema({
   time:{
     type: Date,
     default: Date.now
+  },
+  resolved:{
+    type: Date,
+    default: false
   }
 });
 

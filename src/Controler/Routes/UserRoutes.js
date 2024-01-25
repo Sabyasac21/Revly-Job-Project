@@ -3,10 +3,10 @@ const User = require("../../Model/UserModel/user");
 const jwt = require("jsonwebtoken");
 const doubtForm = require("../../Model/StudentFormModel");
 const authMiddleware = require("../Middlewares/Authorization");
-// const user = require("../../Model/UserModel/user");
+
 router.post("/register", async (req, res) => {
   try {
-    // console.log('form submitted');
+    
     const userExist = await User.findOne({ email: req.body.email });
     if (userExist) {
       res.send({
@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
       { userId: user._id, email: user.email },
       process.env.jwt_secret,
       {
-        expiresIn: "1h",
+        expiresIn: "24h",
       }
     );
 
@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/doubt", authMiddleware, async (req, res) => {
   try {
-    const { classGrade, subject, topic } = req.body;
+    const { classGrade, subject, topic , language} = req.body;
 
     const studentId = req.userId;
 
@@ -82,7 +82,6 @@ router.post("/doubt", authMiddleware, async (req, res) => {
       data: newDoubtForm,
     });
   } catch (error) {
-    // console.log('k hua');
     res.status(404).send({
       message: error.message,
       success: false,
@@ -91,9 +90,10 @@ router.post("/doubt", authMiddleware, async (req, res) => {
   }
 });
 
-router.get('/:studentId', authMiddleware, async (req, res)=>{
+router.get('/studentDashBoard/:studentId', authMiddleware, async (req, res)=>{
   try {
-    const data = await doubtForm.find({studentId:req.body.userId})
+    
+    const data = await doubtForm.find({studentId: req.params.studentId})
       res.send({
         message:'Data Fetched',
         success: true,
@@ -102,7 +102,83 @@ router.get('/:studentId', authMiddleware, async (req, res)=>{
     
   } catch (error) {
     res.status(500).send({
-      message: 'Error fetching data',
+      message: `failed to get user ${error}`,
+      success: false
+    })
+  }
+})
+
+router.get('/teacherDashBoard/:teacherId', authMiddleware, async(req, res)=>{
+  
+  try {
+    // console.log(req.params);
+    const user = await User.findById(req.userId)
+    // console.log(user);
+    const {subject, batch, language} = user
+    const data = await doubtForm.find({subject: subject, batch: batch, language: language})
+    
+    res.send({
+      message: 'data fetched',
+      success: true,
+      data: data
+    })
+  } catch (error) {
+    
+    res.send({
+      message: error,
+      success: false,
+      
+    })
+  }
+})
+
+router.get('/doubts', authMiddleware, async(req, res)=>{
+  try {
+    const response = await doubtForm.find({studentId: req.userId});
+    res.send({
+      message: 'All doubts successfully fetched',
+      success: true,
+      data: response
+    })
+  } catch (error) {
+    res.send({
+      message: `error ${error}`,
+      success: false
+    })
+  }
+})
+
+router.get('/history', authMiddleware, async(req, res)=>{
+  try {
+    
+    const response = await doubtForm.find({resolved: true})
+    console.log(response);
+    res.send({
+      message: 'All resolved doubts successfully fetched',
+      success: true,
+      data: response
+    })
+  } catch (error) {
+    res.send({
+      message: error,
+      success: false
+    })
+  }
+})
+
+router.get('/live', authMiddleware, async(req, res)=>{
+  try {
+    
+    const response = await doubtForm.find({resolved: false})
+    
+    res.send({
+      message: 'All current doubts successfully fetched',
+      success: true,
+      data: response
+    })
+  } catch (error) {
+    res.send({
+      message: error,
       success: false
     })
   }

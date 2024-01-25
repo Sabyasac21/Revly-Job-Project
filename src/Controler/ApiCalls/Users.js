@@ -27,7 +27,6 @@ export const LoginUser = async(payload)=>{
 
 export const createDoubt = async(payload)=>{
     try {
-        
         const response = await axiosInstance.post('/doubt', payload);
         return response
     } catch (error) {
@@ -35,11 +34,50 @@ export const createDoubt = async(payload)=>{
     }
 }
 
-export const userDoubt = async(payload)=>{
+export const userDoubt = async(id)=>{
     try {
-       const response = await axiosInstance.get('/:studentId', payload);
+    //    console.log(id+'from api call');
+       const response = await axiosInstance.get(`/studentDashBoard/${id}`);
        return response 
     } catch (error) {
         return error
     }
 }
+
+export const getBatchDoubts = async(id)=>{
+    try {
+        // console.log(id);
+        const response = await axiosInstance.get(`/teacherDashBoard/${id}`);
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getAllDoubts = async()=>{
+    try {
+        const response = await axiosInstance.get('/doubts');
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getAllSolvedDoubts = async()=>{
+    try {
+        const response = await axiosInstance.get('/history');
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getAllPendingDoubts = async()=>{
+    try {
+        const response = await axiosInstance.get('/live');
+        return response
+    } catch (error) {
+        return error
+    }
+}
+

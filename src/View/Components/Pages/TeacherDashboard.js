@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css'; // Import your CSS file for styling
+import { useParams } from 'react-router-dom';
+import { getBatchDoubts } from '../../../Controler/ApiCalls/Users';
+
 
 const TeacherDashboard = () => {
-  const [problemsHistory, setProblemsHistory] = useState([]);
-
+  const [studentDoubt, setstudentDoubt] = useState([]);
+  const userId = useParams()
+  const teacherId = userId.studentId
   useEffect(() => {
-    // Simulate fetching problems history data (replace with your API call)
+  
     const fetchData = async () => {
       try {
-        // Fetch problems history data from your API
-        // const response = await fetch('/api/teacher/history');
-        // const data = await response.json();
-
-        // Simulated data
-        const data = [
-          { id: 1, problem: 'Problem 1', solvedDate: '2022-04-01' },
-          { id: 2, problem: 'Problem 2', solvedDate: '2022-04-02' },
-          // Add more data as needed
-        ];
-
-        setProblemsHistory(data);
+        // console.log(userId);
+        const response = await getBatchDoubts(userId.teacherId)
+        if (response.data.success){
+          setstudentDoubt(response.data.data);
+        }
+        
       } catch (error) {
-        console.error('Error fetching problems history:', error);
+        console.error('Error fetching problems history:', error.message);
       }
     };
 
@@ -31,13 +29,13 @@ const TeacherDashboard = () => {
   return (
     <div className="teacher-dashboard">
       <h2>Teacher Dashboard</h2>
-      {problemsHistory.length === 0 ? (
+      {studentDoubt.length === 0 ? (
         <p>No problems solved yet.</p>
       ) : (
         <ul className="problems-list">
-          {problemsHistory.map((problem) => (
-            <li key={problem.id}>
-              <strong>{problem.problem}</strong> - Solved on {problem.solvedDate}
+          {studentDoubt.map((problem) => (
+            <li key={problem._id}>
+              <strong>{problem.topic}</strong> - Solved on {new Date(problem.time).toLocaleString()}
             </li>
           ))}
         </ul>

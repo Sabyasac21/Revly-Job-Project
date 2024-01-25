@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { createDoubt } from "../../../Controler/ApiCalls/Users";
 import { useNavigate } from "react-router-dom";
+import './StudentDoubtForm.css'
 
 
 function StudentDoubtForm() {
@@ -8,6 +9,7 @@ function StudentDoubtForm() {
     classGrade: "",
     subject: "",
     topic: "",
+    language: ""
   });
   const navigate = useNavigate()
 
@@ -20,6 +22,7 @@ function StudentDoubtForm() {
         // console.log(payload);
         const response = await createDoubt(payload)
         alert(response.data.message)
+       
         navigate(`/${response.data.data.studentId}`)
     } catch (error) {
         console.log(error)
@@ -71,6 +74,20 @@ function StudentDoubtForm() {
         <option value="Setting up router">Setting up router</option>
         <option value="Virtual DOM">Virtual DOM</option>
         <option value="Hooks">Hooks</option>
+      </select>
+
+      <label>Language</label>
+      <select
+        type="text"
+        name="language"
+        value={doubtForm.language}
+        onChange={handleInputChange}
+        required
+      >
+        <option value="">Select Language</option>
+        <option value="English">English</option>
+        <option value="French">French</option>
+        <option value="Japnese">Japnese</option>
       </select>
 
       <button type="submit">Submit</button>

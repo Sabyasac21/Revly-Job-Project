@@ -9,6 +9,7 @@ import LoginForm from './View/Components/Forms/LoginForm';
 // import TeacherRegistrationForm from './View/Components/Forms/TeacherRegistrationForm';
 import { useState } from 'react';
 import StudentDoubtForm from './View/Components/Forms/StudentDoubtForm';
+import UserDoubts from './View/Components/Pages/UserDoubts';
 
 
 function App() {
@@ -16,7 +17,6 @@ function App() {
   const [user, setUser] = useState('')
   const handleClick = (user)=>{
     setisAuthenticated(true)
-    console.log(user);
     setUser(user)
   }
   
@@ -25,10 +25,14 @@ function App() {
       <Navbar isAuthenticated = {isAuthenticated} role = {user.role}/>
       <Routes>
         <Route path='/' element={<Home isAuthenticated = {isAuthenticated} user={user}/>}/>
-        <Route path='/:studentId' element={<Home isAuthenticated = {isAuthenticated} user={user}/>}/>
+        <Route path='/studentDashBoard/:studentId' element={<Home isAuthenticated = {isAuthenticated} user={user}/>}/>
+        <Route path='/teacherDashBoard/:teacherId' element={<Home isAuthenticated = {isAuthenticated} user={user}/>}/>
         <Route path='/register' element={<RegistrationForm onRegister={handleClick}/>}/>
         <Route path='/login' element={<LoginForm onLogin={handleClick}/>}></Route>
         <Route path='/doubt' element={<StudentDoubtForm/>}></Route>
+        <Route path='/doubts' element={<UserDoubts/>}></Route>
+        <Route path='/history' element={<UserDoubts/>}></Route>
+        <Route path='/live' element={<UserDoubts/>}></Route>
       </Routes>
       
     </Router>

@@ -9,12 +9,12 @@ function RegistrationForm(props) {
 
   const [formData, setFormData] = useState({
     username: "",
-  email: "",
-  password: "",
-  role: "student",
-  classGrade: "",
-  language: "",
-  subject: "",
+    email: "",
+    password: "",
+    role: "student",
+    classGrade: "",
+    language: "",
+    subject: "",
   });
 
   const [validationErrors, setValidationErrors] = useState({
@@ -43,17 +43,14 @@ function RegistrationForm(props) {
   const handleSubmit = async (payload) => {
     try {
       if (validateForm()) {
+        await RegisterUser(payload);
+        const response = await LoginUser(payload)
+        alert('User registered');
         
-        const response = await RegisterUser(payload);
-        
-        alert(response.data.message);
         if (response.data.success) {
-          // localStorage.removeItem('token')
-          localStorage.setItem('token', response.data.data)
-          console.log(response.data.data);
-          
-          
-          navigate('/')
+          response.data.user.role === "students"
+          ? navigate(`/studentDashBoard/${response.data.user._id}`)
+          : navigate(`/teacherDashBoard${response.data.user._id}`);
         }
       }
     } catch (error) {
@@ -130,42 +127,53 @@ function RegistrationForm(props) {
       </select>
       {formData.role === "teacher" && (
         <>
-          <label htmlFor="Class">Class-Grade:</label>
-          <input
+          <label>Class Grade</label>
+          <select
             type="text"
             name="classGrade"
-            id="classGrade"
             value={formData.classGrade}
             onChange={handleInputChange}
-            
-            
-          ></input>
+            required
+          >
+            <option value="">Select Batch</option>
+            <option value="Batch 1">Batch 1</option>
+            <option value="Batch 2">Batch 2</option>
+            <option value="Batch 3">Batch 3</option>
+          </select>
 
-          <label htmlFor="subject">Subject:</label>
-          <input
+          <label>Subject</label>
+          <select
             type="text"
             name="subject"
-            id="subject"
             value={formData.subject}
             onChange={handleInputChange}
-            
-            
-          ></input>
+            required
+          >
+            <option value="">Select Subject</option>
+            <option value="DSA">DSA</option>
+            <option value="Node.js">Node.js</option>
+            <option value="React">React</option>
+          </select>
 
-          <label htmlFor="language">Language:</label>
-          <input
+          <label>Language</label>
+          <select
             type="text"
             name="language"
-            id="language"
             value={formData.language}
             onChange={handleInputChange}
-            
-            
-          ></input>
+            required
+          >
+            <option value="">Select Language</option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+            <option value="Japnese">Japnese</option>
+          </select>
         </>
       )}
 
-      <button type="submit" onClick={()=>props.onRegister(formData)}>Register</button>
+      <button type="submit" onClick={() => props.onRegister(formData)}>
+        Register
+      </button>
 
       <Link to="/login">
         <span className="form login">Already have an account</span>

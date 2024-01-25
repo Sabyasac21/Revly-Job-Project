@@ -1,6 +1,7 @@
 .nav-cont{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1rem;
     /* border-bottom: 1px solid grey; */
     background-color: rgb(2, 1, 36);
     height: 5rem;
