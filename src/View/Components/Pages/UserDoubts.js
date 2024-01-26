@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-// import user from "../../../Model/UserModel/user";
 import { getAllDoubts, getAllPendingDoubts, getAllSolvedDoubts } from "../../../Controler/ApiCalls/Users";
 import './UserDoubt.css'
 function UserDoubts() {
   const [doubts, setDoubts] = useState([]);
-  const [history, setHistory] = useState([])
+  const [history, setHistory] = useState([]);
   const [currentProblem, setCurrentProblem] = useState([])
   const location = useLocation();
   const { pathname } = location;
   const fetchData = async () => {
+   
     if (pathname === "/doubts") {
       const response = await getAllDoubts();
-      if (response.data.success) {
-        setDoubts(response.data.data);
-      }
+    //   console.log(response.data);
+      if (response.data.success) 
+        {setDoubts(response.data.data);}
     }
     if (pathname === "/history") {
         const response = await getAllSolvedDoubts();
@@ -24,7 +24,7 @@ function UserDoubts() {
       }
 
     if (pathname === "/live") {
-        const response = await getAllPendingDoubts({resolved: false});
+        const response = await getAllPendingDoubts();
         if (response.data.success) {
           setCurrentProblem(response.data.data);
         }
@@ -35,16 +35,17 @@ function UserDoubts() {
     
   }, [pathname])
   return (
-    <div className="useDoubts-container">
+    <div className="userDoubts-container">
   {pathname === '/doubts' && (
     <div>
       <h2>All Doubts</h2>
-      {!doubts.length ? (
+      {doubts.length===0 ? (
         <p style={{display:'flex', justifyContent: 'center'}}>No doubts yet</p>
       ) : (
         <ul className="doubts-list">
           {doubts.map((doubt) => (
-            <li key={doubt._id}>
+            
+            <li key={doubt._id} >
               <strong>{doubt.topic}</strong>
               {doubt.resolved ? (
                 <p>Solved on - {new Date().toLocaleString()}</p>
@@ -52,6 +53,7 @@ function UserDoubts() {
                 <p>Raised on : {new Date(doubt.time).toLocaleString()}</p>
               )}
             </li>
+            
           ))}
         </ul>
       )}
@@ -83,11 +85,11 @@ function UserDoubts() {
 {pathname === '/live' && (
     <div>
       <h2>Current Problems</h2>
-      {!doubts.length ? (
+      {!currentProblem.length ? (
         <p style={{display:'flex', justifyContent: 'center'}}>No doubts yet</p>
       ) : (
         <ul className="doubts-list">
-          {doubts.map((doubt) => (
+          {currentProblem.map((doubt) => (
             <li key={doubt._id}>
               <strong>{doubt.topic}</strong>
               {doubt.resolved ? (

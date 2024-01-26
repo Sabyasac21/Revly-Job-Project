@@ -32,7 +32,7 @@ const doubtFormSchema = new mongoose.Schema({
     default: Date.now
   },
   resolved:{
-    type: Date,
+    type: Boolean,
     default: false
   }
 });

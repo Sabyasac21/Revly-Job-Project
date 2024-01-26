@@ -23,7 +23,7 @@ function StudentDoubtForm() {
         const response = await createDoubt(payload)
         alert(response.data.message)
        
-        navigate(`/${response.data.data.studentId}`)
+        navigate(`/studentDashBoard/${response.data.data.studentId}`)
     } catch (error) {
         console.log(error)
     }
