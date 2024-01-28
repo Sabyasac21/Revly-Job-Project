@@ -7,7 +7,7 @@ import { getBatchDoubts } from '../../../Controler/ApiCalls/Users';
 const TeacherDashboard = () => {
   const [studentDoubt, setstudentDoubt] = useState([]);
   const userId = useParams()
-  const teacherId = userId.studentId
+  // const teacherId = userId.studentId
   useEffect(() => {
   
     const fetchData = async () => {

@@ -18,9 +18,9 @@ function Navbar(props) {
                {!props.isAuthenticated && <Link to='/login'  className='nav login'>Login</Link>}
                 {!props.isAuthenticated && <Link to='/register' className='nav register'>Register</Link>}
                 {(props.isAuthenticated && props.role==='student') && <Link to='/doubt' className='nav doubt-question'>Create Doubt</Link>}
-                {props.isAuthenticated && <Link to='/doubts' className='nav doubts'>Doubts</Link>}
-                {props.isAuthenticated && <Link to='/history' className='nav history'>History</Link>}
-                {props.isAuthenticated &&<Link to='/live' className='nav live'> Current Problems</Link>}
+                {props.isAuthenticated && <Link to={props.role==='student'?'/doubts': '/teacher/doubts'} className='nav doubts'>Doubts</Link>}
+                {props.isAuthenticated && <Link to={props.role==='student'?'/history': '/teacher/history'}  className='nav history'>History</Link>}
+                {props.isAuthenticated &&<Link to={props.role==='student'?'/live': '/teacher/live'}  className='nav live'> Current Problems</Link>}
             </div>
         </div>
         

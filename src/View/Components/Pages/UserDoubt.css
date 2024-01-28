@@ -1,10 +1,15 @@
-.useDoubts-container {
+.userDoubts-container {
     max-width: 600px;
     margin-top: 3rem;
     margin: auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+  }
+  .link-style {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
   }
   h2{
     text-align: center;

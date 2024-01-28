@@ -81,3 +81,56 @@ export const getAllPendingDoubts = async()=>{
     }
 }
 
+export const getMyBatchDoubts = async()=>{
+    try {
+        const response = await axiosInstance.get('/teacher/doubts');
+        return response
+    } catch (error) {
+        return error
+    }
+}
+export const getMyBatchSolvedDoubts = async()=>{
+    try {
+        const response = await axiosInstance.get('/teacher/history');
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getMyBatchPendingDoubts = async()=>{
+    try {
+        const response = await axiosInstance.get('/teacher/live');
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+
+export const getDoubtDetails = async(payload)=>{
+    try {
+
+        const response = await axiosInstance.get(`/solution/${payload}`);
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const updateDoubt = async(payload)=>{
+    try {
+        
+        const response = await axiosInstance.patch(`/solution/${payload}`);
+        
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+
+
+
+
+

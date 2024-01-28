@@ -46,11 +46,11 @@ function RegistrationForm(props) {
         await RegisterUser(payload);
         const response = await LoginUser(payload)
         alert('User registered');
-        
+
         if (response.data.success) {
-          response.data.user.role === "students"
+          response.data.user.role === "student"
           ? navigate(`/studentDashBoard/${response.data.user._id}`)
-          : navigate(`/teacherDashBoard${response.data.user._id}`);
+          : navigate(`/teacherDashBoard/${response.data.user._id}`);
         }
       }
     } catch (error) {
