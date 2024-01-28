@@ -187,23 +187,121 @@ router.get("/live", authMiddleware, async (req, res) => {
       success: false,
     });
   }
-})
-
-router.get('/live', authMiddleware, async(req, res)=>{
+});
+router.get("/teacher/doubts", authMiddleware, async (req, res) => {
   try {
-    
-    const response = await doubtForm.find({resolved: false})
+    const user = await User.findById(req.userId);
+
+    const response = await doubtForm.find({
+      subject: user.subject,
+      classGrade: user.classGrade,
+      language: user.language
+    });
     
     res.send({
       success: true,
+      message: "data fetched",
+      data: response,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: `data not received ${error.error}`,
+    });
+  }
+});
+
+router.get("/teacher/history", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    const response = await doubtForm.find({
+      subject: user.subject,
+      classGrade: user.classGrade,
+      language: user.language,
+      resolved: true,
+    });
+
+    res.send({
+      success: true,
+      message: "data fetched",
+      data: response,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: `data not received ${error.error}`,
+    });
+  }
+});
+
+router.get("/teacher/live", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    
+    const response = await doubtForm.find({
+      subject: user.subject,
+      classGrade: user.classGrade,
+      language: user.language,
+      resolved: false,
+    });
+   
+
+    res.send({
+      success: true,
+      message: "data fetched",
+      data: response,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: `data not received ${error.error}`,
+    });
+  }
+});
+
+router.get('/solution/:doubtId', authMiddleware, async(req, res)=>{
+  try {
+    const id = req.params
+    // console.log(id);
+    const response = await doubtForm.findById({_id: id.doubtId});
+    
+    res.send({
+      success: true,
+      message: 'doubt fetched successfully',
       data: response
     })
   } catch (error) {
     res.send({
-      message: error,
-      success: false
+      success: false,
+      message: 'Issue in fetching doubt'
     })
   }
 })
+
+router.patch('/solution/:doubtId', authMiddleware, async (req, res) => {
+  try {
+    const id = req.params;
+    console.log('inside');
+    const response = await doubtForm.findByIdAndUpdate(id.doubtId, { resolved: true, assigned: true }, { new: true });
+    
+  
+    
+    res.send({
+      success: true,
+      message: 'Doubt updated successfully',
+      data: response
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: 'Issue in updating doubt'
+    });
+  }
+});
+
+
+
+
 
 module.exports = router;
