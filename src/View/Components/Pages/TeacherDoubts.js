@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
+<<<<<<< HEAD
+=======
+  getAllDoubts,
+>>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
   getMyBatchDoubts,
   getMyBatchPendingDoubts,
   getMyBatchSolvedDoubts,
 } from "../../../Controler/ApiCalls/Users";
+<<<<<<< HEAD
 import './UserDoubt.css'
 import { Link, useLocation } from "react-router-dom";
+=======
+// import './UserDoubt.css'
+import { useLocation } from "react-router-dom";
+>>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
 
 function TeacherDoubts() {
   const [doubts, setDoubts] = useState([]);
@@ -53,9 +62,13 @@ function TeacherDoubts() {
           ) : (
             <ul className="doubts-list">
               {doubts.map((doubt) => (
+<<<<<<< HEAD
                 <Link to={`/solution/${doubt._id}`} style={{textDecoration: 'none', color: 'inherit'}}>
                 <li key={doubt._id}>
                     
+=======
+                <li key={doubt._id}>
+>>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
                   <strong>{doubt.topic}</strong>
                   {doubt.resolved ? (
                     <p>Solved on - {new Date().toLocaleString()}</p>
@@ -63,7 +76,10 @@ function TeacherDoubts() {
                     <p>Raised on : {new Date(doubt.time).toLocaleString()}</p>
                   )}
                 </li>
+<<<<<<< HEAD
                 </Link>
+=======
+>>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
               ))}
             </ul>
           )}
