@@ -108,7 +108,7 @@ export const getMyBatchPendingDoubts = async()=>{
 }
 
 
-<<<<<<< HEAD
+
 export const getDoubtDetails = async(payload)=>{
     try {
 
@@ -132,8 +132,7 @@ export const updateDoubt = async(payload)=>{
 
 
 
-=======
->>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
+
 
 
 

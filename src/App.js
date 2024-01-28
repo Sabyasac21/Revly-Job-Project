@@ -11,10 +11,9 @@ import { useState } from "react";
 import StudentDoubtForm from "./View/Components/Forms/StudentDoubtForm";
 import UserDoubts from "./View/Components/Pages/UserDoubts";
 import TeacherDoubts from "./View/Components/Pages/TeacherDoubts"
-<<<<<<< HEAD
+
 import DoubtSolution from "./View/Components/Pages/DoubtSolution";
-=======
->>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
+
 
 function App() {
   const [isAuthenticated, setisAuthenticated] = useState(false);
@@ -57,10 +56,9 @@ function App() {
         <Route path="/teacher/doubts" element={<TeacherDoubts />}></Route>
         <Route path="/teacher/history" element={<TeacherDoubts />}></Route>
         <Route path="/teacher/live" element={<TeacherDoubts />}></Route>
-<<<<<<< HEAD
+
         <Route path="/solution/:doubtId" element={<DoubtSolution />}></Route>
-=======
->>>>>>> 32cb9f1fa4c0282b882f5e52f7433fccee9117a7
+
       
       </Routes>
     </Router>
