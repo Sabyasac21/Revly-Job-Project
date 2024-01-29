@@ -48,6 +48,7 @@ function RegistrationForm(props) {
         alert('User registered');
 
         if (response.data.success) {
+          localStorage.setItem('token', response.data.data)
           response.data.user.role === "student"
           ? navigate(`/studentDashBoard/${response.data.user._id}`)
           : navigate(`/teacherDashBoard/${response.data.user._id}`);

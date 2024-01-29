@@ -6,6 +6,10 @@ import './Dashboard.css'
 function StudentDashboard() {
   
   const {studentId} = useParams()
+  
+  
+  
+  console.log('found??');
   const [doubts, setDoubts] = useState([])
   const getDoubts = async()=>{
     try {

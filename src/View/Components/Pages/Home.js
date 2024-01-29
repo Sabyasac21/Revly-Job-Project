@@ -19,7 +19,7 @@ function Home(props) {
 
         
         {(props.isAuthenticated) && <div className='user-status'>
-          {props.user.role==='teacher' ? <TeacherDashboard/>:(<StudentDashboard/>)}
+          {props.user.role==='teacher' ? (<TeacherDashboard/>):(<StudentDashboard/>)}
             
         </div>}
         

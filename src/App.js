@@ -10,10 +10,9 @@ import LoginForm from "./View/Components/Forms/LoginForm";
 import { useState } from "react";
 import StudentDoubtForm from "./View/Components/Forms/StudentDoubtForm";
 import UserDoubts from "./View/Components/Pages/UserDoubts";
-import TeacherDoubts from "./View/Components/Pages/TeacherDoubts"
+import TeacherDoubts from "./View/Components/Pages/TeacherDoubts";
 
 import DoubtSolution from "./View/Components/Pages/DoubtSolution";
-
 
 function App() {
   const [isAuthenticated, setisAuthenticated] = useState(false);
@@ -26,10 +25,10 @@ function App() {
 
   return (
     <Router>
-      <Navbar isAuthenticated={isAuthenticated} role={user.role} />
+      <Navbar isAuthenticated={isAuthenticated} user={user} />
       <Routes>
         <Route
-          path="/"
+          path={(user.role==='teacher'?'/:teacherId':'/:studentId') ||'/'}
           element={<Home isAuthenticated={isAuthenticated} user={user} />}
         />
         <Route
@@ -49,7 +48,7 @@ function App() {
           element={<LoginForm onLogin={handleClick} />}
         ></Route>
         <Route path="/doubt" element={<StudentDoubtForm />}></Route>
-        
+
         <Route path="/doubts" element={<UserDoubts />}></Route>
         <Route path="/history" element={<UserDoubts />}></Route>
         <Route path="/live" element={<UserDoubts />}></Route>
@@ -58,8 +57,6 @@ function App() {
         <Route path="/teacher/live" element={<TeacherDoubts />}></Route>
 
         <Route path="/solution/:doubtId" element={<DoubtSolution />}></Route>
-
-      
       </Routes>
     </Router>
   );

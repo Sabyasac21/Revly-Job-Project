@@ -18,13 +18,13 @@ router.post("/register", async (req, res) => {
     // console.log(newUser);
     await newUser.save();
 
-    const token = jwt.sign(
-      { userId: newUser._id, email: newUser.email },
-      process.env.jwt_secret,
-      {
-        expiresIn: "7h",
-      }
-    );
+    // const token = jwt.sign(
+    //   { userId: newUser._id, email: newUser.email },
+    //   process.env.jwt_secret,
+    //   {
+    //     expiresIn: "7h",
+    //   }
+    // );
 
     res.send({
       success: true,
@@ -133,7 +133,9 @@ router.get("/teacherDashBoard/:teacherId", authMiddleware, async (req, res) => {
 
 router.get("/doubts", authMiddleware, async (req, res) => {
   try {
+    
     const response = await doubtForm.find({ studentId: req.userId });
+    
 
     res.send({
       message: "All doubts successfully fetched",
@@ -174,7 +176,7 @@ router.get("/live", authMiddleware, async (req, res) => {
       studentId: req.userId,
       resolved: false,
     });
-    console.log(response);
+    
 
     res.send({
       message: "All current doubts successfully fetched",

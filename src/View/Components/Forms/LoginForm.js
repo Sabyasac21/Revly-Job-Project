@@ -19,6 +19,7 @@ function LoginForm(props) {
         localStorage.setItem("token", response.data.data);
 
         props.onLogin(response.data.user);
+        console.log(props.user);
 
         response.data.user.role === "student"
           ? navigate(`/studentDashBoard/${response.data.user._id}`)
