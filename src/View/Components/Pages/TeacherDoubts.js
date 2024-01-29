@@ -45,7 +45,7 @@ function TeacherDoubts() {
         <div>
           <h2>All Doubts</h2>
           {doubts.length === 0 ? (
-            <p>No doubts yet</p>
+            <p style={{display:'flex', justifyContent: 'center'}}>No doubts yet</p>
           ) : (
             <ul className="doubts-list">
               {doubts.map((doubt) => (
@@ -68,7 +68,7 @@ function TeacherDoubts() {
         <div>
           <h2>All Solved Doubts</h2>
           {!history.length ? (
-            <p>No doubts solved yet</p>
+            <p style={{display:'flex', justifyContent: 'center'}}>No doubts solved yet</p>
           ) : (
             <ul className="doubts-list">
               {history.map((each) => (
@@ -89,7 +89,7 @@ function TeacherDoubts() {
         <div>
           <h2>Current Problems</h2>
           {!currentProblem.length ? (
-            <p>No doubts yet</p>
+            <p style={{display:'flex', justifyContent: 'center'}}>No doubts yet</p>
           ) : (
             <ul className="doubts-list">
               {currentProblem.map((doubt) => (

@@ -14,14 +14,28 @@ import TeacherDoubts from "./View/Components/Pages/TeacherDoubts";
 
 import DoubtSolution from "./View/Components/Pages/DoubtSolution";
 
+
+
 function App() {
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [user, setUser] = useState("");
+ 
+
+
   const handleClick = (user) => {
     setisAuthenticated(true);
     setUser(user);
     console.log(user);
   };
+ 
+  const handleLogOut = ()=>{
+    setisAuthenticated(false)
+    setUser('')
+    localStorage.removeItem('token')
+    
+
+    
+  }
 
   return (
     <Router>
@@ -29,7 +43,9 @@ function App() {
       <Routes>
         <Route
           path={(user.role==='teacher'?'/:teacherId':'/:studentId') ||'/'}
-          element={<Home isAuthenticated={isAuthenticated} user={user} />}
+          element={<Home isAuthenticated={isAuthenticated} user={user} >
+            {<button style={{marginTop: '1rem'}} onClick={()=>{handleLogOut(); }}>LogOut</button>}
+          </Home>}
         />
         <Route
           path="/studentDashBoard/:studentId"
